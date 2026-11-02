@@ -57,9 +57,69 @@ const entreprise = {
     <Header />
     <main id="contenu"><slot /></main>
     <Footer />
+    <button
+      type="button"
+      class="back-to-top"
+      data-back-to-top
+      aria-label={t("Retour en haut de la page", "Back to top")}
+      title={t("Retour en haut", "Back to top")}
+      hidden
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="m6 12 6-6 6 6M12 6v12" />
+      </svg>
+    </button>
     <div class="mobile-contact">
       <a href={`tel:${site.phoneHref}`} aria-label={`${t("Appeler", "Call us")} ${site.phone}`}>{t("Appeler l’entreprise", "Call us")}</a>
       <a href={href("/contact/")}>{t("Devis gratuit", "Free quote")} <span aria-hidden="true">↗</span></a>
     </div>
   </body>
 </html>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.5rem;
+    z-index: 45;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--color-nuit);
+    border-radius: 50%;
+    background: var(--color-nuit);
+    color: white;
+    box-shadow: 0 4px 20px #17163a30;
+    cursor: pointer;
+    transition: background-color .2s;
+  }
+
+  .back-to-top[hidden] { display: none; }
+  .back-to-top:hover { background: var(--color-violet); }
+
+  @media (max-width: 639px) {
+    .back-to-top {
+      right: 1rem;
+      bottom: calc(5.5rem + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+
+<script>
+  const backToTop = document.querySelector<HTMLButtonElement>("[data-back-to-top]");
+  if (backToTop) {
+    const updateVisibility = () => {
+      backToTop.hidden = window.scrollY < 400;
+    };
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    updateVisibility();
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      });
+    });
+  }
+</script>
