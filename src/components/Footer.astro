@@ -10,7 +10,10 @@ const localizedServices = lang === "en" ? servicesEn : services;
 <footer class="bg-nuit text-white/85">
   <div class="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
     <div>
-      <p class="font-display text-xl font-bold text-white">{site.name}</p>
+      <a href={href("/")} class="inline-flex items-center gap-3 font-display text-xl font-bold text-white">
+        <img src="/favicon.svg" width="48" height="48" alt="" class="h-12 w-12 shrink-0" />
+        <span>{site.name}</span>
+      </a>
       <p class="mt-3">{t(`Bureau d’étude en rénovation énergétique, basé à ${site.locality}. Intervention en Alsace et jusqu’à 100 km.`, `Energy renovation consultancy based in ${site.locality}, working across Alsace and within 100 km.`)}</p>
       <p class="mt-4"><a class="font-semibold text-soleil hover:underline" href={`tel:${site.phoneHref}`}>{site.phone}</a></p>
       <p class="mt-1"><a class="hover:underline" href={`mailto:${site.email}`}>{site.email}</a></p>

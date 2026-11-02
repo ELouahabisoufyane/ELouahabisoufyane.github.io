@@ -19,9 +19,9 @@ const isActive = (path: string) => frenchPath === path;
 </div>
 <header class="site-header">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
-    <a href={href("/")} class="flex min-w-0 items-center gap-3 font-display text-base font-bold tracking-tight text-nuit sm:text-xl">
-      <span class="brand-mark hidden sm:grid" aria-hidden="true">M<span>°</span></span>
-      <span class="max-w-32 sm:max-w-none">{site.name}<span class="mt-0.5 hidden font-sans text-[10px] font-medium tracking-widest text-brume uppercase sm:block">{t("Étudier. Rénover. Mieux vivre.", "Assess. Renovate. Live better.")}</span></span>
+    <a href={href("/")} class="flex min-w-0 items-center gap-2 font-display text-[13px] font-bold tracking-tight text-nuit sm:gap-3 sm:text-xl">
+      <img src="/favicon.svg" width="48" height="48" alt="" class="h-8 w-8 shrink-0 sm:h-12 sm:w-12" />
+      <span class="max-w-[90px] sm:max-w-none">{site.name}<span class="mt-0.5 hidden font-sans text-[10px] font-medium tracking-widest text-brume uppercase sm:block">{t("Étudier. Rénover. Mieux vivre.", "Assess. Renovate. Live better.")}</span></span>
     </a>
     <nav aria-label={t("Navigation principale", "Main navigation")} class="hidden items-center gap-5 xl:flex">
       {links.map((link) => (

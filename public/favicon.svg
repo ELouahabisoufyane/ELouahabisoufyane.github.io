@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#4B2E83"/><stop offset=".4" stop-color="#B6366F"/><stop offset=".75" stop-color="#EE7A1F"/><stop offset="1" stop-color="#FFC843"/></linearGradient></defs><circle cx="16" cy="16" r="15" fill="url(#g)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="thermal" x1="12" y1="50" x2="48" y2="16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#69B982"/>
+      <stop offset=".55" stop-color="#BCE5C5"/>
+      <stop offset="1" stop-color="#DCF3DF"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#123B2C"/>
+  <path d="M12 30 32 13 52 30" stroke="url(#thermal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 32V49H46V32" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M34 27 26 38H33L30 45 40 33H32L34 27Z" fill="url(#thermal)"/>
+</svg>

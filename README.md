@@ -25,6 +25,7 @@ Cherchez `À COMPLÉTER` / `À VÉRIFIER` / `À ADAPTER` dans le projet :
 Sans URL HTTPS configurée (ou avec `VOTRE_ID`), l'envoi est désactivé et un message invite à contacter l'entreprise par téléphone ou e-mail. L'envoi utilise la page de confirmation du prestataire ; vérifiez la réception d'une demande avant mise en ligne. L'adresse e-mail dans `src/data/site.ts` reste à confirmer.
 
 ## Langues et interface
+- La palette vert forêt, sauge et blanc est centralisée dans `src/styles/global.css`. Les noms historiques des couleurs sont conservés pour les classes existantes. Le logo partagé et le favicon sont dans `public/favicon.svg` ; la couleur du navigateur est définie dans `src/layouts/Layout.astro`.
 - Le français reste à la racine ; les mêmes pages sont disponibles en anglais sous `/en/`.
 - Le sélecteur FR / EN conserve la page consultée. Les modèles Astro sont partagés ; les textes d'interface utilisent `src/i18n.ts`.
 - Les contenus des prestations et villes sont dans `src/data/services.ts`, `src/data/zones.ts` et leurs équivalents `.en.ts`. Maintenez les deux versions ensemble en conservant les mêmes slugs.

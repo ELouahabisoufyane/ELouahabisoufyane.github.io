@@ -41,7 +41,7 @@ const entreprise = {
     <link rel="alternate" hreflang="x-default" href={new URL(frenchPath, site.url).href} />
     {noindex && <meta name="robots" content="noindex,follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#17163a" />
+    <meta name="theme-color" content="#123b2c" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === "fr" ? "fr_FR" : "en_GB"} />
     <meta property="og:site_name" content={site.name} />
@@ -90,7 +90,7 @@ const entreprise = {
     border-radius: 50%;
     background: var(--color-nuit);
     color: white;
-    box-shadow: 0 4px 20px #17163a30;
+    box-shadow: 0 4px 20px color-mix(in srgb, var(--color-nuit) 19%, transparent);
     cursor: pointer;
     transition: background-color .2s;
   }

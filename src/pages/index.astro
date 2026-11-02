@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ContactForm from "../components/ContactForm.astro";
-import ContactMethods from "../components/ContactMethods.astro";
 import { site } from "../data/site";
 import { services } from "../data/services";
 import { zones } from "../data/zones";
@@ -9,18 +7,21 @@ import { servicesEn } from "../data/services.en";
 import { localize } from "../i18n";
 const { lang, t, href } = localize(Astro.url);
 const localizedServices = lang === "en" ? servicesEn : services;
+const apercus = [
+  { icon: "audit", texte: t("Repérez les pertes de chaleur.", "Find where your home loses heat.") },
+  { icon: "home", texte: t("Les bons travaux, dans le bon ordre.", "The right improvements in the right order.") },
+  { icon: "building", texte: t("Un projet collectif bien accompagné.", "Support for your shared renovation project.") },
+  { icon: "heat", texte: t("Un chauffage adapté à votre logement.", "Heating tailored to your home.") },
+  { icon: "wall", texte: t("Isolez sans perdre de surface.", "Insulate without losing living space.") },
+  { icon: "sun", texte: t("Produisez votre propre électricité.", "Generate your own electricity.") },
+];
 
 const diapositives = [
   { image: "/images/maison-renovee.jpg", alt: t("Maison lumineuse au cœur d’un jardin", "A bright home surrounded by a garden"), titre: t("Un logement mieux rénové", "A better-renovated home"), texte: t("Des travaux adaptés à votre maison et à votre budget.", "Improvements tailored to your home and your budget.") },
   { image: "/images/interieur-renove.jpg", alt: t("Intérieur rénové et baigné de lumière", "A renovated, light-filled interior"), titre: t("Plus de confort au quotidien", "More everyday comfort"), texte: t("Un intérieur agréable en toute saison, avec moins de pertes de chaleur.", "A comfortable interior in every season, with less heat loss.") },
   { image: "/images/confort-thermique.jpg", alt: t("Pièce de vie chaleureuse dans une maison", "A welcoming living space in a home"), titre: t("Des économies bien pensées", "Smarter energy savings"), texte: t("Les bons travaux, dans le bon ordre, avec les aides adaptées.", "The right improvements, in the right order, with suitable funding.") },
 ];
-const etapes = [
-  { titre: t("Vous nous contactez", "Get in touch"), texte: t("Vous décrivez votre projet par téléphone ou avec le formulaire.", "Tell us about your project by phone or using the form.") },
-  { titre: t("Visite du logement", "Property visit"), texte: t("Nous relevons le bâti, la ventilation et le chauffage sur place.", "We assess the building, ventilation and heating on site.") },
-  { titre: t("Rapport et scénarios", "Report and options"), texte: t("Vous recevez des programmes de travaux chiffrés, classés par efficacité.", "You receive costed renovation plans ranked by effectiveness.") },
-  { titre: t("Aides et devis", "Funding and quotes"), texte: t("Nous vous accompagnons sur les aides et la comparaison des devis.", "We help you explore funding and compare contractor quotes.") },
-];
+const etapes = [t("On échange", "Let's talk"), t("On étudie votre logement", "We assess your home"), t("Vous choisissez vos travaux", "You choose your improvements")];
 ---
 <Layout
   title={t("Audit énergétique et rénovation énergétique en Alsace", "Energy audits and home renovation in Alsace")}
@@ -29,12 +30,9 @@ const etapes = [
   <section class="hero-home bg-nuit text-white">
     <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 lg:grid-cols-2 lg:py-24">
       <div>
-        <p class="mb-5 text-xs font-semibold tracking-widest text-soleil uppercase">{t("Conseil thermique · Strasbourg & Alsace", "Energy consultancy · Strasbourg & Alsace")}</p>
+        <p class="mb-5 text-xs font-semibold tracking-widest text-soleil uppercase">{t("Strasbourg & Alsace", "Strasbourg & Alsace")}</p>
         <h1 class="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">{t("Moins de dépenses. Plus de confort.", "Lower bills. Greater comfort.")}</h1>
         <p class="mt-4 font-display text-xl text-soleil">{t("Audit énergétique et rénovation en Alsace", "Energy audits and renovation in Alsace")}</p>
-        <p class="mt-5 max-w-xl text-lg text-white/85">
-          {t("Nous repérons où votre logement perd de la chaleur, puis nous classons les travaux par efficacité, aides comprises.", "We identify where your home loses heat, then prioritise improvements by effectiveness, taking available funding into account.")}
-        </p>
         <div class="mt-8 flex flex-wrap gap-4">
           <a href="#contact" class="btn-chaud">{t("Parlons de votre projet", "Let's discuss your project")} <span aria-hidden="true">↗</span></a>
           <a href={`tel:${site.phoneHref}`} class="btn-contour">{site.phone}</a>
@@ -68,7 +66,6 @@ const etapes = [
             />
             <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-nuit/95 via-nuit/65 to-transparent px-6 pb-8 pt-20 text-white sm:px-8">
               <h2 class="text-2xl font-bold sm:text-3xl">{diapositive.titre}</h2>
-              <p class="mt-2 max-w-lg text-sm text-white/85 sm:text-base">{diapositive.texte}</p>
             </div>
           </div>
         ))}
@@ -78,19 +75,30 @@ const etapes = [
 
   <div class="border-b border-nuit/10 bg-glace">
     <div class="mx-auto grid max-w-6xl gap-5 px-5 py-7 text-sm sm:grid-cols-3">
-      {[t("Une étude adaptée à votre logement", "An assessment tailored to your home"), t("Des travaux priorisés et chiffrés", "Prioritised, costed improvements"), t("Un accompagnement sur les aides", "Support with available funding")].map((label) => <p class="flex items-center gap-3 font-semibold"><span aria-hidden="true" class="text-magenta">✓</span>{label}</p>)}
+      {[t("Étude sur mesure", "Tailored assessment"), t("Travaux chiffrés", "Costed improvements"), t("Conseil sur les aides", "Funding advice")].map((label) => <p class="flex items-center gap-3 font-semibold"><span aria-hidden="true" class="text-magenta">✓</span>{label}</p>)}
     </div>
   </div>
 
   <section class="mx-auto max-w-6xl px-5 py-16">
-    <p class="eyebrow">{t("À chaque projet, la bonne étude", "The right assessment for every project")}</p>
-    <h2 class="mt-3 text-3xl font-bold sm:text-4xl">{t("Comment pouvons-nous vous aider ?", "How can we help you?")}</h2>
+    <h2 class="text-3xl font-bold sm:text-4xl">{t("Votre projet, notre expertise.", "Your project, our expertise.")}</h2>
     <div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {localizedServices.map((s, i) => (
         <a href={href(`/${s.slug}/`)} class="service-card group">
-          <div class="mb-6 flex items-center justify-between"><span class="font-display text-sm font-bold text-magenta">{String(i + 1).padStart(2, "0")}</span><span aria-hidden="true" class="text-xl text-brume group-hover:text-magenta">↗</span></div>
+          <div class="mb-6 flex items-center justify-between">
+            <span class="service-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                {apercus[i].icon === "audit" && <><path d="m4 15 10-9 10 9M7 13v13h10M11 26v-8h6" /><circle cx="23" cy="21" r="5" /><path d="m27 25 3 4" /></>}
+                {apercus[i].icon === "home" && <><path d="m3 15 13-11 13 11M7 12v16h18V12M13 28v-9h6v9" /><path d="m13 12 2 2 4-4" /></>}
+                {apercus[i].icon === "building" && <><path d="M5 28V5h15v23M20 14h7v14M3 28h26M10 10h5M10 15h5M10 20h5M11 28v-4h4v4" /></>}
+                {apercus[i].icon === "heat" && <><rect x="4" y="7" width="24" height="20" rx="3" /><circle cx="15" cy="17" r="6" /><path d="M15 11v12M9 17h12M24 12h1M24 17h1M8 27v2M24 27v2" /></>}
+                {apercus[i].icon === "wall" && <><path d="M4 5h24v23H4ZM4 12h24M4 20h24M12 5v7M22 12v8M12 20v8M7 3v26" /></>}
+                {apercus[i].icon === "sun" && <><circle cx="24" cy="8" r="4" /><path d="M24 1v1M24 14v1M17 8h-1M31 8h-1M19 3l1 1M28 12l1 1M28 4l1-1M19 13l1-1M6 17h19l3 11H3l3-11ZM5 22h21M12 17l-1 11M19 17l1 11" /></>}
+              </svg>
+            </span>
+            <span aria-hidden="true" class="text-xl text-brume group-hover:text-magenta">↗</span>
+          </div>
           <h3 class="text-xl font-semibold group-hover:underline">{s.nav}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-brume">{s.resume}</p>
+          <p class="mt-3 text-sm leading-relaxed text-brume">{apercus[i].texte}</p>
         </a>
       ))}
     </div>
@@ -98,14 +106,12 @@ const etapes = [
 
   <section class="bg-glace">
     <div class="mx-auto max-w-6xl px-5 py-16">
-      <p class="eyebrow">{t("Simple, de la première question aux travaux", "Straightforward, from first question to renovation")}</p>
-      <h2 class="mt-3 text-3xl font-bold">{t("Un parcours clair, à vos côtés.", "A clear path, with support at every step.")}</h2>
-      <ol class="mt-8 grid gap-8 md:grid-cols-4">
+      <h2 class="text-3xl font-bold">{t("Simple, en 3 étapes.", "Three simple steps.")}</h2>
+      <ol class="mt-8 grid gap-6 md:grid-cols-3">
         {etapes.map((e, i) => (
-          <li>
-            <span class="font-display text-4xl font-bold text-magenta">{i + 1}</span>
-            <h3 class="mt-2 text-lg font-semibold">{e.titre}</h3>
-            <p class="mt-1 text-brume">{e.texte}</p>
+          <li class="flex items-center gap-4">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white font-display text-xl font-bold text-magenta">{i + 1}</span>
+            <h3 class="text-lg font-semibold">{e}</h3>
           </li>
         ))}
       </ol>
@@ -113,9 +119,8 @@ const etapes = [
   </section>
 
   <section class="mx-auto max-w-6xl px-5 py-16">
-    <p class="eyebrow">{t("Proches de votre projet", "Local support for your project")}</p>
-    <h2 class="mt-3 text-3xl font-bold">{t("Strasbourg et toute l’Alsace.", "Strasbourg and all of Alsace.")}</h2>
-    <p class="mt-3 max-w-2xl text-brume">{t(`Basés à ${site.locality}, nous intervenons jusqu’à 100 km autour de Strasbourg.`, `Based in ${site.locality}, we work within 100 km of Strasbourg.`)}</p>
+    <h2 class="text-3xl font-bold">{t("Près de chez vous, en Alsace.", "Local support across Alsace.")}</h2>
+    <p class="mt-3 text-brume">{t("Jusqu’à 100 km autour de Strasbourg.", "Within 100 km of Strasbourg.")}</p>
     <ul class="mt-6 flex flex-wrap gap-3">
       {zones.map((z) => (
         <li><a class="inline-block rounded-full border border-nuit/20 px-4 py-2 font-medium hover:border-magenta hover:text-magenta" href={href(`/zones/${z.slug}/`)}>{z.nom}</a></li>
@@ -123,23 +128,32 @@ const etapes = [
     </ul>
   </section>
 
-  <section id="contact" class="bg-glace">
-    <div class="mx-auto grid max-w-6xl items-start gap-10 px-5 py-16 lg:grid-cols-2">
+  <section id="contact" class="bg-nuit text-white">
+    <div class="mx-auto grid max-w-6xl items-center gap-8 px-5 py-14 lg:grid-cols-2">
       <div>
-        <p class="eyebrow">{t("Faisons le premier pas", "Take the first step")}</p>
-        <h2 class="mt-3 text-3xl font-bold sm:text-4xl">{t("Votre projet commence par un échange.", "Your project starts with a conversation.")}</h2>
-        <p class="mt-4 mb-8 text-brume">{t("Décrivez votre projet en quelques lignes : nous vous répondons sous 24 h.", "Tell us about your project: we will reply within 24 hours.")}</p>
-        <ContactMethods />
+        <h2 class="text-3xl font-bold sm:text-4xl">{t("On en parle ?", "Let's talk.")}</h2>
+        <p class="mt-3 text-white/80">{t("Devis gratuit, réponse sous 24 h.", "Free quote, reply within 24 hours.")}</p>
       </div>
-      <div class="contact-card">
-        <h3 class="mb-6 text-2xl font-bold">{t("Demandez votre devis gratuit", "Request your free quote")}</h3>
-        <ContactForm />
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a href={href("/contact/")} class="btn-chaud">{t("Demander un devis", "Request a quote")} <span aria-hidden="true">↗</span></a>
+        <a href={`tel:${site.phoneHref}`} class="btn-contour">{site.phone}</a>
+        <a href={`mailto:${site.email}`} class="w-full text-sm text-white/80 underline underline-offset-4 lg:text-right">{t("Nous écrire par e-mail", "Send us an email")}</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
+  .service-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: var(--color-glace);
+    color: var(--color-magenta);
+  }
+
   .carousel-slide {
     position: relative;
     grid-area: 1 / 1;
