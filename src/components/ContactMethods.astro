@@ -1,0 +1,19 @@
+---
+import { site } from "../data/site";
+import { localize } from "../i18n";
+const { t } = localize(Astro.url);
+---
+<div class="space-y-4">
+  <a class="contact-method" href={`tel:${site.phoneHref}`}>
+    <span class="contact-icon" aria-hidden="true">↗</span>
+    <span><span class="block text-sm text-brume">{t("Par téléphone", "By phone")}</span><strong class="text-lg">{site.phone}</strong></span>
+  </a>
+  <a class="contact-method" href={`mailto:${site.email}`}>
+    <span class="contact-icon" aria-hidden="true">@</span>
+    <span><span class="block text-sm text-brume">{t("Par e-mail", "By email")}</span><strong class="text-sm sm:text-base">{site.email}</strong></span>
+  </a>
+  <div class="rounded-2xl bg-glace p-5 text-sm text-brume">
+    <p class="font-semibold text-nuit">{t("Strasbourg & toute l’Alsace", "Strasbourg & all of Alsace")}</p>
+    <p class="mt-2">{t("Nous intervenons jusqu’à 100 km autour de Strasbourg. Décrivez votre logement et vos besoins : nous vous orientons vers la bonne étude.", "We work within 100 km of Strasbourg. Tell us about your property and your needs: we will recommend the right assessment.")}</p>
+  </div>
+</div>

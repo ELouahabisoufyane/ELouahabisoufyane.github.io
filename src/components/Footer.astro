@@ -1,0 +1,37 @@
+---
+import { site } from "../data/site";
+import { services } from "../data/services";
+import { zones } from "../data/zones";
+import { servicesEn } from "../data/services.en";
+import { localize } from "../i18n";
+const { lang, t, href } = localize(Astro.url);
+const localizedServices = lang === "en" ? servicesEn : services;
+---
+<footer class="bg-nuit text-white/85">
+  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
+    <div>
+      <p class="font-display text-xl font-bold text-white">{site.name}</p>
+      <p class="mt-3">{t(`Bureau d’étude en rénovation énergétique, basé à ${site.locality}. Intervention en Alsace et jusqu’à 100 km.`, `Energy renovation consultancy based in ${site.locality}, working across Alsace and within 100 km.`)}</p>
+      <p class="mt-4"><a class="font-semibold text-soleil hover:underline" href={`tel:${site.phoneHref}`}>{site.phone}</a></p>
+      <p class="mt-1"><a class="hover:underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <nav aria-label={t("Prestations", "Services")}>
+      <p class="font-display text-lg font-semibold text-white">{t("Prestations", "Services")}</p>
+      <ul class="mt-3 space-y-2">
+        {localizedServices.map((s) => <li><a class="hover:underline" href={href(`/${s.slug}/`)}>{s.nav}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label={t("Zones d’intervention", "Areas we cover")}>
+      <p class="font-display text-lg font-semibold text-white">{t("Zones d’intervention", "Areas we cover")}</p>
+      <ul class="mt-3 grid grid-cols-2 gap-2">
+        {zones.map((z) => <li><a class="hover:underline" href={href(`/zones/${z.slug}/`)}>{z.nom}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="border-t border-white/15">
+    <div class="mx-auto flex max-w-6xl flex-wrap justify-between gap-3 px-5 py-5 text-sm">
+      <p>© {new Date().getFullYear()} {site.name}</p>
+      <p><a class="hover:underline" href={href("/contact/")}>{t("Contact", "Contact")}</a> <span class="mx-2" aria-hidden="true">·</span> <a class="hover:underline" href={href("/mentions-legales/")}>{t("Mentions légales et confidentialité", "Legal notice & privacy")}</a></p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import ContactMethods from "../components/ContactMethods.astro";
+import { site } from "../data/site";
+import { services, type Service } from "../data/services";
+import { servicesEn } from "../data/services.en";
+import { localize } from "../i18n";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props as { service: Service };
+const { lang, t, href } = localize(Astro.url);
+const autres = (lang === "en" ? servicesEn : services).filter((s) => s.slug !== service.slug);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.h1,
+    description: service.description,
+    areaServed: "Alsace",
+    provider: { "@type": "ProfessionalService", name: site.name, url: site.url },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: service.faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+];
+---
+<Layout title={service.metaTitle} description={service.description} jsonLd={jsonLd}>
+  <section class="bg-nuit text-white">
+    <div class="mx-auto max-w-4xl px-5 py-14 lg:py-20">
+      <h1 class="text-3xl font-bold leading-tight sm:text-4xl">{service.h1}</h1>
+      <p class="mt-5 max-w-2xl text-lg text-white/85">{service.intro}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#contact" class="btn-chaud">{t("Demander un devis gratuit", "Request a free quote")}</a>
+        <a href={`tel:${site.phoneHref}`} class="btn-contour">{site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 py-14">
+    <h2 class="text-2xl font-bold">{t("Ce que comprend la prestation", "What's included")}</h2>
+    <dl class="mt-6 grid gap-x-10 gap-y-6 md:grid-cols-2">
+      {service.points.map((p) => (
+        <div class="service-card">
+          <dt class="text-lg font-semibold">{p.titre}</dt>
+          <dd class="mt-1 text-brume">{p.texte}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="bg-glace">
+    <div class="mx-auto max-w-4xl px-5 py-14">
+      <h2 class="text-2xl font-bold">{t("Questions fréquentes", "Frequently asked questions")}</h2>
+      <div class="mt-6 divide-y divide-nuit/15 border-y border-nuit/15">
+        {service.faq.map((f) => (
+          <details class="group py-4">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold">
+              {f.q}
+              <span aria-hidden="true" class="text-2xl text-magenta transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 max-w-2xl text-brume">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 py-14">
+    <h2 class="text-2xl font-bold">{t("Nos autres prestations", "Our other services")}</h2>
+    <ul class="mt-4 flex flex-wrap gap-3">
+      {autres.map((s) => (
+        <li><a class="inline-block rounded-md border-2 border-nuit/20 px-4 py-2 font-medium hover:border-magenta hover:text-magenta" href={href(`/${s.slug}/`)}>{s.nav}</a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="contact" class="bg-glace">
+    <div class="mx-auto grid max-w-6xl items-start gap-10 px-5 py-14 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-bold">{t("Demandez votre devis gratuit", "Request your free quote")}</h2>
+        <p class="mt-3 mb-8 text-brume">{t("Réponse sous 24 h.", "Reply within 24 hours.")}</p>
+        <ContactMethods />
+      </div>
+      <div class="contact-card"><ContactForm projet={service.projet} /></div>
+    </div>
+  </section>
+</Layout>

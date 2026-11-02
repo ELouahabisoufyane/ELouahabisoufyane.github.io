@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/ContactForm.astro";
+import ContactMethods from "../components/ContactMethods.astro";
+import { localize } from "../i18n";
+const { t } = localize(Astro.url);
+---
+<Layout
+  title={t("Contact et devis gratuit", "Contact us for a free quote")}
+  description={t("Contactez Mon Conseil Thermique à Strasbourg pour un devis gratuit d’audit énergétique ou de rénovation énergétique en Alsace. Réponse sous 24 h.", "Contact Mon Conseil Thermique in Strasbourg for a free energy audit or renovation quote in Alsace. Reply within 24 hours.")}
+>
+  <section class="bg-glace px-5 py-14 lg:py-20">
+    <div class="mx-auto max-w-6xl">
+      <p class="eyebrow">{t("Un premier échange, un projet plus clair", "A first conversation, a clearer project")}</p>
+      <h1 class="mt-4 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">{t("Parlons de votre logement.", "Let's talk about your home.")}</h1>
+      <p class="mt-5 max-w-2xl text-lg text-brume">{t("Un audit, une rénovation ou simplement une question ? Contactez-nous directement ou décrivez votre projet. Réponse sous 24 h.", "An audit, a renovation or just a question? Contact us directly or tell us about your project. Reply within 24 hours.")}</p>
+      <div class="mt-10 grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+        <ContactMethods />
+        <div class="contact-card">
+          <h2 class="text-2xl font-bold">{t("Votre demande de devis gratuit", "Your free quote request")}</h2>
+          <p class="mt-2 mb-7 text-sm text-brume">{t("Quelques informations pour bien comprendre votre besoin.", "A few details to help us understand what you need.")}</p>
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

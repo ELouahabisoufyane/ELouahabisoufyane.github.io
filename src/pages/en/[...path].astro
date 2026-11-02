@@ -1,0 +1,32 @@
+---
+import Home from "../index.astro";
+import Contact from "../contact.astro";
+import About from "../a-propos.astro";
+import Legal from "../mentions-legales.astro";
+import NotFound from "../404.astro";
+import ServicePage from "../[slug].astro";
+import ZonePage from "../zones/[ville].astro";
+import { servicesEn } from "../../data/services.en";
+import { zonesEn } from "../../data/zones.en";
+
+export function getStaticPaths() {
+  return [
+    { params: { path: undefined }, props: { kind: "home" } },
+    { params: { path: "contact" }, props: { kind: "contact" } },
+    { params: { path: "a-propos" }, props: { kind: "about" } },
+    { params: { path: "mentions-legales" }, props: { kind: "legal" } },
+    { params: { path: "404" }, props: { kind: "notFound" } },
+    ...servicesEn.map((service) => ({ params: { path: service.slug }, props: { kind: "service", service } })),
+    ...zonesEn.map((zone) => ({ params: { path: `zones/${zone.slug}` }, props: { kind: "zone", zone } })),
+  ];
+}
+
+const props = Astro.props;
+---
+{props.kind === "home" && <Home />}
+{props.kind === "contact" && <Contact />}
+{props.kind === "about" && <About />}
+{props.kind === "legal" && <Legal />}
+{props.kind === "notFound" && <NotFound />}
+{props.kind === "service" && <ServicePage service={props.service} />}
+{props.kind === "zone" && <ZonePage zone={props.zone} />}

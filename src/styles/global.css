@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/public-sans";
+
+@theme {
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  /* Palette inspirée d'une image thermographique : nuit froide -> braise -> soleil */
+  --color-nuit: #17163a;
+  --color-violet: #4b2e83;
+  --color-magenta: #b6366f;
+  --color-braise: #ee7a1f;
+  --color-soleil: #ffc843;
+  --color-glace: #eef1f8;
+  --color-brume: #5a5e7d;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+  :focus-visible { outline: 3px solid var(--color-violet); outline-offset: 3px; }
+  .bg-nuit :focus-visible, footer :focus-visible { outline-color: var(--color-soleil); }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+}
+
+@layer components {
+  .btn-chaud {
+    @apply inline-flex items-center justify-center gap-3 rounded-xl bg-braise px-6 py-3 font-semibold text-nuit transition-colors hover:bg-soleil;
+  }
+  .btn-contour {
+    @apply inline-flex items-center justify-center gap-3 rounded-xl border border-white/40 px-6 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-nuit;
+  }
+  .bg-thermique {
+    background-image: linear-gradient(90deg, #4b2e83, #b6366f, #ee7a1f, #ffc843);
+  }
+  .champ {
+    @apply w-full rounded-xl border border-nuit/20 bg-white px-4 py-3 text-nuit transition-colors hover:border-nuit/40 focus:border-violet;
+  }
+}
+
+.site-header { position: sticky; top: 0; z-index: 40; background: rgb(255 255 255 / 96%); border-bottom: 1px solid #17163a12; }
+.brand-mark { place-items: center; position: relative; width: 42px; height: 42px; border-radius: 14px; background: #17163a; color: #fff; font-size: 24px; }
+.brand-mark span { position: absolute; right: 3px; top: -3px; color: #ffc843; }
+.language-switch { display: flex; padding: 3px; border: 1px solid #17163a20; border-radius: 10px; font-size: 12px; font-weight: 700; }
+.language-switch a { padding: 5px 7px; border-radius: 7px; }
+.language-switch a[aria-current] { background: #17163a; color: white; }
+.eyebrow { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: #b6366f; }
+.hero-home { background: radial-gradient(ellipse at 15% 0%, #4b2e8370, transparent 55%), #17163a; }
+.service-card { display: block; padding: 1.75rem; border: 1px solid #17163a15; border-radius: 1.25rem; background: white; transition: border-color .2s, box-shadow .2s; }
+.service-card:hover { border-color: #b6366f70; box-shadow: 0 12px 32px #17163a0a; }
+.contact-card { border: 1px solid #17163a15; border-radius: 1.5rem; background: white; padding: clamp(1.25rem, 3vw, 2.5rem); box-shadow: 0 20px 60px #17163a08; }
+.contact-method { display: flex; gap: 1rem; align-items: center; padding: 1.25rem; border: 1px solid #17163a15; border-radius: 1rem; overflow-wrap: anywhere; transition: border-color .2s; }
+.contact-method:hover { border-color: #b6366f; }
+.contact-icon { display: grid; flex-shrink: 0; place-items: center; width: 44px; height: 44px; border-radius: 14px; color: #4b2e83; background: #eef1f8; }
+section[id] { scroll-margin-top: 110px; }
+.mobile-contact { display: none; }
+@media (max-width: 639px) {
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .mobile-contact { position: fixed; bottom: 0; inset-inline: 0; z-index: 50; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding: .6rem .75rem calc(.6rem + env(safe-area-inset-bottom)); background: white; box-shadow: 0 -4px 24px #17163a12; }
+  .mobile-contact a { padding: .75rem .4rem; border-radius: .75rem; background: #17163a; color: white; text-align: center; font-size: .8rem; font-weight: 700; }
+  .mobile-contact a:last-child { background: #ee7a1f; color: #17163a; }
+}

@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { localize } from "../i18n";
+const { t } = localize(Astro.url);
+---
+<Layout
+  title={t("Mentions légales et confidentialité", "Legal notice and privacy")}
+  description={t("Mentions légales et politique de confidentialité du site Mon Conseil Thermique.", "Legal notice and privacy policy for the Mon Conseil Thermique website.")}
+  noindex={true}
+>
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <h1 class="text-4xl font-bold">{t("Mentions légales et confidentialité", "Legal notice and privacy")}</h1>
+
+    <h2 class="mt-10 text-2xl font-bold">{t("Éditeur du site", "Website publisher")}</h2>
+    <p class="mt-3 text-brume">
+      {site.name}<br />
+      {t("[À COMPLÉTER : forme juridique, capital, SIRET, adresse du siège]", "[TO BE COMPLETED: legal structure, capital, SIRET registration number, registered office address]")}<br />
+      {t("Téléphone", "Phone")} : {site.phone}<br />
+      {t("E-mail", "Email")} : {site.email}<br />
+      {t("Directeur de la publication : [À COMPLÉTER]", "Publication director: [TO BE COMPLETED]")}
+    </p>
+
+    <h2 class="mt-10 text-2xl font-bold">{t("Hébergeur", "Hosting provider")}</h2>
+    <p class="mt-3 text-brume">{t("[À COMPLÉTER : nom, adresse et contact de l’hébergeur choisi]", "[TO BE COMPLETED: hosting provider name, address and contact details]")}</p>
+
+    <h2 id="donnees" class="mt-10 text-2xl font-bold">{t("Données personnelles", "Personal data")}</h2>
+    <p class="mt-3 text-brume">
+      {t("Les informations saisies dans le formulaire (nom, téléphone, e-mail, commune, message) servent uniquement à répondre à votre demande. Elles ne sont ni vendues ni cédées. Elles sont conservées le temps nécessaire au traitement de votre demande, puis pendant [À COMPLÉTER : durée] au plus.", "The information entered in the form (name, phone number, email, town or city, message) is used only to respond to your enquiry. It is not sold or transferred. It is kept for the time needed to process your enquiry, then for a maximum of [TO BE COMPLETED: retention period].")}
+    </p>
+    <p class="mt-3 text-brume">
+      {t(`Vous pouvez accéder à vos données, les rectifier ou demander leur suppression en écrivant à ${site.email}. Vous pouvez aussi saisir la CNIL (cnil.fr).`, `You can access, correct or request deletion of your data by writing to ${site.email}. You may also contact the French data protection authority, CNIL (cnil.fr).`)}
+    </p>
+
+    <h2 class="mt-10 text-2xl font-bold">Cookies</h2>
+    <p class="mt-3 text-brume">{t("Ce site n’utilise aucun cookie de suivi. [À ADAPTER si un outil de mesure d’audience est ajouté.]", "This website does not use tracking cookies. [UPDATE if analytics tools are added.]")}</p>
+  </section>
+</Layout>

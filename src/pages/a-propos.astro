@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { localize } from "../i18n";
+const { t, href } = localize(Astro.url);
+---
+<Layout
+  title={t("À propos : bureau d’étude en rénovation énergétique à Strasbourg", "About us: energy renovation consultancy in Strasbourg")}
+  description={t("Mon Conseil Thermique est un bureau d’étude basé à Strasbourg, spécialisé en rénovation énergétique de maisons, d’appartements et de copropriétés dans toute l’Alsace.", "Mon Conseil Thermique is a Strasbourg-based consultancy specialising in energy renovation for houses, apartments and condominiums across Alsace.")}
+>
+  <section class="mx-auto max-w-3xl px-5 py-16">
+    <p class="eyebrow">{t("Comprendre votre logement, guider vos choix", "Understand your home, make informed choices")}</p>
+    <h1 class="mt-4 text-4xl font-bold leading-tight">{t("Un bureau d’étude thermique à Strasbourg", "An energy consultancy in Strasbourg")}</h1>
+    <p class="mt-6 text-lg text-brume">
+      {t(`${site.name} accompagne les propriétaires de maisons, d’appartements et de copropriétés dans leur rénovation énergétique, dans toute l’Alsace et jusqu’à 100 km autour de Strasbourg.`, `${site.name} supports owners of houses, apartments and condominiums with energy renovation across Alsace and within 100 km of Strasbourg.`)}
+    </p>
+
+    <h2 class="mt-12 text-2xl font-bold">{t("Notre méthode", "Our approach")}</h2>
+    <p class="mt-4 text-brume">
+      {t("Nous partons du logement réel : visite sur place, relevé du bâti, puis calcul des déperditions. À partir de ces mesures, nous proposons des travaux dans le bon ordre, avec leur coût et les aides mobilisables.", "We start with your actual property: an on-site visit, a building survey and heat-loss calculations. Based on these measurements, we recommend improvements in the right order, with estimated costs and available funding.")}
+    </p>
+
+    <h2 class="mt-12 text-2xl font-bold">{t("Un accompagnement adapté", "Support tailored to your needs")}</h2>
+    <p class="mt-4 text-brume">
+      {t("Chaque logement a ses contraintes. Nous vous aidons à comprendre les options techniques et à comparer les devis pour avancer avec un programme cohérent, adapté à votre budget.", "Every property has its own constraints. We help you understand the technical options and compare quotes so you can move forward with a coherent plan tailored to your budget.")}
+    </p>
+
+    <p class="mt-12">
+      <a href={href("/contact/")} class="btn-chaud">{t("Parlons de votre projet", "Let's discuss your project")}</a>
+    </p>
+  </section>
+</Layout>

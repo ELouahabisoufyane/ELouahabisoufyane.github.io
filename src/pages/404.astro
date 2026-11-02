@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { localize } from "../i18n";
+const { t, href } = localize(Astro.url);
+---
+<Layout title={t("Page introuvable", "Page not found")} description={t("Cette page n’existe pas ou a été déplacée.", "This page does not exist or has moved.")} noindex={true}>
+  <section class="mx-auto max-w-3xl px-5 py-24">
+    <h1 class="text-4xl font-bold">{t("Page introuvable", "Page not found")}</h1>
+    <p class="mt-4 text-lg text-brume">{t("Cette adresse n’existe pas ou a été déplacée. Retournez à l’accueil ou contactez-nous.", "This page does not exist or has moved. Return to the homepage or contact us.")}</p>
+    <p class="mt-8 flex gap-4"><a href={href("/")} class="btn-chaud">{t("Retour à l’accueil", "Back to home")}</a></p>
+  </section>
+</Layout>

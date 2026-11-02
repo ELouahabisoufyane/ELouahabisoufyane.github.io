@@ -1,0 +1,29 @@
+# --- HTTPS + domaine sans www ---
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://monconseilthermique.fr/$1 [R=301,L]
+
+# --- Redirections 301 depuis les anciennes URL du site (conserve le référencement) ---
+Redirect 301 /audit-energetique-maison-a-strasbourg-or-aides-maprimerenov /audit-energetique/
+Redirect 301 /renovation-energetique-maison-a-strasbourg-or-audit-energetique-and-aides-maprimerenov /renovation-energetique/
+
+# --- Page 404 ---
+ErrorDocument 404 /404.html
+
+# --- Compression ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml application/json
+</IfModule>
+
+# --- Cache navigateur ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+</IfModule>

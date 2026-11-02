@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ContactForm from "../../components/ContactForm.astro";
+import ContactMethods from "../../components/ContactMethods.astro";
+import { site } from "../../data/site";
+import { services } from "../../data/services";
+import { zones, type Zone } from "../../data/zones";
+import { servicesEn } from "../../data/services.en";
+import { localize } from "../../i18n";
+
+export function getStaticPaths() {
+  return zones.map((zone) => ({ params: { ville: zone.slug }, props: { zone } }));
+}
+const { zone } = Astro.props as { zone: Zone };
+const { lang, t, href } = localize(Astro.url);
+const localizedServices = lang === "en" ? servicesEn : services;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: t(`Audit énergétique et rénovation énergétique à ${zone.nom}`, `Energy audits and renovation in ${zone.nom}`),
+    areaServed: { "@type": "City", name: zone.nom },
+    provider: { "@type": "ProfessionalService", name: site.name, url: site.url },
+  },
+];
+---
+<Layout
+  title={t(`Audit énergétique et rénovation à ${zone.nom}`, `Energy audits and renovation in ${zone.nom}`)}
+  description={t(`Audit énergétique, rénovation globale, pompe à chaleur et isolation à ${zone.nom} (${zone.departement}) : visite sur place, travaux chiffrés et aides. Devis gratuit.`, `Energy audits, whole-home renovation, heat pumps and insulation in ${zone.nom} (${zone.departement}): on-site visits, costed improvements and funding advice. Free quote.`)}
+  jsonLd={jsonLd}
+>
+  <section class="bg-nuit text-white">
+    <div class="mx-auto max-w-4xl px-5 py-14 lg:py-20">
+      <h1 class="text-3xl font-bold leading-tight sm:text-4xl">{t(`Audit énergétique et rénovation énergétique à ${zone.nom}`, `Energy audits and renovation in ${zone.nom}`)}</h1>
+      <p class="mt-5 max-w-2xl text-lg text-white/85">{zone.habitat}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#contact" class="btn-chaud">{t("Demander un devis gratuit", "Request a free quote")}</a>
+        <a href={`tel:${site.phoneHref}`} class="btn-contour">{site.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-5 py-14">
+    <h2 class="text-2xl font-bold">{t(`Les travaux les plus fréquents à ${zone.nom}`, `Common home improvements in ${zone.nom}`)}</h2>
+    <p class="mt-4 max-w-2xl text-brume">
+      {t(`Dans ce type de logement, les projets portent souvent sur ${zone.priorite}. Un audit énergétique permet de choisir l’ordre des travaux et d’estimer ce que les aides financent.`, `Projects for these properties often focus on ${zone.priorite}. An energy audit helps prioritise improvements and estimate available funding.`)}
+    </p>
+    <ul class="mt-8 grid gap-x-10 gap-y-4 md:grid-cols-2">
+      {localizedServices.map((s) => (
+        <li class="border-l-4 border-braise pl-5">
+          <a class="text-lg font-semibold hover:underline" href={href(`/${s.slug}/`)}>{s.nav}</a>
+          <p class="text-brume">{s.resume}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="contact" class="bg-glace">
+    <div class="mx-auto grid max-w-6xl items-start gap-10 px-5 py-14 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-bold">{t(`Demandez votre devis gratuit à ${zone.nom}`, `Request your free quote in ${zone.nom}`)}</h2>
+        <p class="mt-3 mb-8 text-brume">{t("Réponse sous 24 h.", "Reply within 24 hours.")}</p>
+        <ContactMethods />
+      </div>
+      <div class="contact-card"><ContactForm /></div>
+    </div>
+  </section>
+</Layout>
